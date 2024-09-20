@@ -31,10 +31,12 @@ export const DashboardSidebar = () => {
   }, []);
 
   return (
-    <aside className="w-64 bg-gray-900 p-6 space-y-6">
+    <aside className="w-64 bg-slate-800 p-6 space-y-6">
       <div className="flex items-center space-x-2">
-        <Zap className="h-8 w-8 text-purple-500" />
-        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+        <img
+        src="/assets/logo.svg"
+         className="h-8 w-8 text-purple-500" />
+        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
           Crowdsourced
         </span>
       </div>
@@ -82,14 +84,14 @@ export const DashboardSidebar = () => {
         >
           <BarChart2 className="mr-2 h-4 w-4" /> Analytics
         </Button>
-        <Button variant="ghost" className="w-full justify-start">
+        {/* <Button variant="ghost" className="w-full justify-start">
           <DollarSign className="mr-2 h-4 w-4" /> Billing
         </Button>
         <Button variant="ghost" className="w-full justify-start">
           <Users className="mr-2 h-4 w-4" /> Voter Pool
-        </Button>
+        </Button> */}
       </nav>
-      <div className="pt-6 border-t border-gray-800">
+      <div className="pt-6 border-t border-white">
         <Button variant="ghost" className="w-full justify-start">
           <Settings className="mr-2 h-4 w-4" /> Settings
         </Button>
