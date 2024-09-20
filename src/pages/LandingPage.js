@@ -132,14 +132,19 @@ export default function EnhancedLandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <Button className="bg-purple-600 hover:bg-purple-700 text-lg px-8 py-6 group transition-all duration-300 transform hover:scale-105">
-              Get Insights (For Companies)
+            <Button
+            onClick={
+                () => {
+                    window.location.href = "/register";
+            }}
+             className="bg-purple-600 hover:bg-purple-700 text-lg px-8 py-6 group transition-all duration-300 transform hover:scale-105">
+              Get Started
               <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 group transition-all duration-300 transform hover:scale-105">
+            {/* <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-6 group transition-all duration-300 transform hover:scale-105">
               Earn Rewards (For Voters)
               <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
+            </Button> */}
           </motion.div>
         </div>
       </section>
