@@ -41,6 +41,41 @@ Crowdsourced is an innovative platform designed to connect two distinct user gro
 - **For Companies**: Crowdsourced offers a reliable and efficient way to gather large-scale feedback and opinions, crucial for training models, improving products, and making informed business decisions.
 - **For Voters**: The platform provides an accessible and rewarding way to earn cryptocurrency by participating in tasks that align with their interests.
 
+### Screenshots
+
+Here are some screenshots showcasing various parts of the platform:
+
+#### Landing Page
+![Landing Page](src/assets/LandingPage.png)
+*The initial page where users can learn about the platform and its benefits.*
+
+#### Register Page
+![Register Page](src/assets/RegisterPage.png)
+*The registration page for new users to sign up and join the platform.*
+
+#### Company Dashboard
+![Company Dashboard](src/assets/CompanyDash.png)
+*A comprehensive dashboard for companies to manage their tasks and view analytics.*
+
+#### Analytics
+![Analytics](src/assets/Analytics.png)
+*Detailed analytics page for companies to analyze the feedback and data collected.*
+
+#### Voter Dashboard
+![Voter Dashboard](src/assets/VoterDash.png)
+*The dashboard for voters to view available tasks and track their earnings.*
+
+#### Post Question
+![Post Question](src/assets/PostQuestion.png)
+*Interface for companies to post new questions and tasks for voters.*
+
+#### Submit Form
+![Submit Form](src/assets/SubmitForm.png)
+*Form submission page for voters to submit their responses.*
+
+
+### Landing Page
+
 ## Use Cases
 
 - **Training AI Models**: Companies can use the platform to gather data needed to train machine learning models, benefiting from diverse inputs that enhance model accuracy.
