@@ -46,14 +46,14 @@ model QuestionForm {
 }
 
 model Vote {
-  id              Int        @id @default(autoincrement())
-  questionId      Int
-  question        Question   @relation(fields: [questionId], references: [id])
+  id              Int          @id @default(autoincrement())
+  questionId      Int?
+  question        Question?    @relation(fields: [questionId], references: [id])
   voterId         Int
-  voter           Voter      @relation(fields: [voterId], references: [id])
-  questionFormId  Int
-  questionForm    QuestionForm @relation(fields: [questionFormId], references: [id])
-  createdAt       DateTime   @default(now())
+  voter           Voter        @relation(fields: [voterId], references: [id])
+  questionFormId  Int?
+  questionForm    QuestionForm? @relation(fields: [questionFormId], references: [id])
+  createdAt       DateTime     @default(now())
 }
 
 model Referral {

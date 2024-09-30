@@ -75,7 +75,7 @@ export default function LandingPage() {
         }
       >
         <motion.h1
-          className="text-3xl font-bold bg-clip-text  text-transparent bg-gradient-to-r from-purple-500 to-pink-500"
+          className="text-3xl popping-font font-semibold bg-clip-text  text-transparent bg-gradient-to-r from-purple-500 to-pink-500"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -122,15 +122,16 @@ export default function LandingPage() {
         </motion.div>
         <div className="container mx-auto px-4 text-center relative z-10 bg-transparent">
           <motion.h2
-            className="animated-gradientV2 text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-700 via-pink-500 to-red-500"
+            className="popping-font animated-gradientV2 text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-700 via-pink-500 to-red-500"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3  }}
+            
           >
             Unlock the Power of the Crowd
           </motion.h2>
           <motion.p
-            className="text-xl mb-8 max-w-2xl mx-auto"
+            className="popping-font text-xl mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -230,7 +231,7 @@ export default function LandingPage() {
       {/* How it Works */}
       <section className="py-20 relative overflow-hidden" id="HowItWorks">
         <div className="absolute inset-0 bg-gradient-to-tl from-black/20 to-gray-950/20" />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 popping-font">
           <motion.h2
             className="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
             initial={{ opacity: 0, y: 20 }}
@@ -539,7 +540,7 @@ export default function LandingPage() {
             >
               Our Impact
             </motion.h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 ">
               {[
                 { label: "Active Users", value: "50,000+" },
                 { label: "Tasks Completed", value: "1,000,000+" },

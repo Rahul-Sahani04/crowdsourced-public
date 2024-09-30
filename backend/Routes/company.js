@@ -438,6 +438,7 @@ router.post("/deposit", authMiddleware, async (req, res) => {
     );
 
     try {
+        console.log('Received deposit request:', userId, amount, signature);
         // Verify the signature
         const message = `Deposit ${amount} POL to vault`;
         const recoveredAddress = ethers.utils.verifyMessage(message, signature);
@@ -448,6 +449,7 @@ router.post("/deposit", authMiddleware, async (req, res) => {
             where: {id: userId},
             select: {walletAddress: true}
         })
+        console.log("User: ", userAddress);
         console.log("User Address", userAddress.walletAddress);
         if (recoveredAddress.toLowerCase() !== userAddress.walletAddress.toLowerCase()) {
             return res.status(401).json({ error: "Invalid signature" });

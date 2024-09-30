@@ -256,11 +256,25 @@ export default function VoterQuestions() {
     handleLogin();
     }, []);
 
+  // useEffect(() => {
+  //   console.log("Fetching questions...");
+  //   fetchQuestions();
+  //   // fetchRewards();
+  // }, []);
+
   useEffect(() => {
-    console.log("Fetching questions...");
-    fetchQuestions();
-    // fetchRewards();
-  }, []);
+    if (userId) {
+      console.log("Fetching questions...");
+      fetchQuestions();
+    }
+  }, [userId]); // This will only run once the userId has been set after login
+  
+  useEffect(() => {
+      // document.querySelectorAll("QuestionCard")[0] remove first occurence
+
+      document.getElementById("QuestionCard").style.display = "none";
+
+  }, [mockQuestions]);
 
   function vote(questionId, optionId) {
     voteOnQuestion(questionId, optionId);
@@ -289,6 +303,10 @@ export default function VoterQuestions() {
 
         console.log("Answers:", answers);
     };
+
+    useEffect(() => {
+      console.log("Mock Questions State:", mockQuestions);
+    }, [mockQuestions]);
 
   return (
     <div className="flex h-screen bg-gray-900 text-white">
@@ -360,18 +378,19 @@ export default function VoterQuestions() {
           </motion.div>
         </div>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           <motion.div
             key={mockQuestions.id}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.3 }}
-          >
+            id="QuestionCard"
+            >
             <Card className="bg-gray-800 border-purple-500/20 border mb-6 text-white/90">
-              <CardHeader>
+              <CardHeader id="HeaderMain">
                 <CardTitle className="text-2xl mb-2">
-                  {mockQuestions.title}
+                  {mockQuestions.title || "Question"}
                 </CardTitle>
                 <CardDescription className="text-purple-400">
                   Reward: {mockQuestions.rewardPerVote} POL
@@ -416,7 +435,7 @@ export default function VoterQuestions() {
                             src={imageUrl.imageUrl}
                             alt={`Option ${index + 1}`}
                             className={`w-full h-auto rounded-lg transition-all duration-300 ${
-                              answer === String(index)
+                              answer === index
                                 ? "ring-4 ring-purple-500"
                                 : "hover:ring-2 hover:ring-purple-400"
                             }`}

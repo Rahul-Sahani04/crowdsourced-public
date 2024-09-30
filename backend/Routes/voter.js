@@ -102,13 +102,19 @@ router.post('/vote/:formId', authMiddleware, async (req, res) => {
     try {
         const question = await prisma.question.findUnique({
             where: { id: questionId },
+            select: { 
+                options: true,
+                rewardPerVote: true,
+            },
         });
-
+        console.log(question);
         if (!question) {
-            return res.status(204).json({ error: 'Question not found' });
+            console.log('Question not found:', questionId);
+            return res.status(404).json({ error: 'Question not found' });
         }
 
         if (question.totalVotes >= question.voteLimit) {
+            console.log('Vote limit reached for question:', questionId);
             return res.status(204).json({ error: 'Vote limit reached' });
         }
 
@@ -117,23 +123,28 @@ router.post('/vote/:formId', authMiddleware, async (req, res) => {
         });
 
         if (!questionForm) {
-            return res.status(204).json({ error: 'QuestionForm not found' });
+            console.log('QuestionForm not found:', formId);
+            // return res.status(404).json({ error: 'QuestionForm not found' });
         }
 
-        // Record the vote
-        await prisma.vote.create({
-            data: {
-                question: {
-                    connect: { id: questionId }
+        if (!Array.isArray(question.options) || !question.options.some(option => option.hasOwnProperty('imageUrl'))) {
+            console.log('QuestionForm has no options with imageURL:', formId);
+            return res.status(204).json({ error: 'QuestionForm has no options with imageURL' });
+        } else {
+            // Record the vote without questionForm
+            await prisma.vote.create({
+                data: {
+                    question: {
+                        connect: { id: questionId }
+                    },
+                    voter: {
+                        connect: { id: userId }
+                    }
                 },
-                voter: {
-                    connect: { id: userId }
-                },
-                questionForm: {
-                    connect: { id: parseInt(formId) }
-                }
-            },
-        });
+            });
+        }
+
+        console.log('Received vote for question:', questionId, 'option:', optionId);
 
         // Update the vote count
         await prisma.question.update({
@@ -164,6 +175,94 @@ router.post('/vote/:formId', authMiddleware, async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+// router.post('/vote/:formId', authMiddleware, async (req, res) => {
+//     let { formId } = req.params;
+//     const { questionId, optionId } = req.body;
+//     let { userId } = req.body;
+
+//     userId = parseInt(userId);
+//     console.log('Vote request received:', req.body);
+//     console.log('User ID:', userId);
+
+//     try {
+//         const question = await prisma.question.findUnique({
+//             where: { id: questionId },
+//             select: { options: true },
+//         });
+//         console.log(question);
+//         if (!question) {
+//             console.log('Question not found:', questionId);
+//             return res.status(204).json({ error: 'Question not found' });
+//         }
+
+//         if (question.totalVotes >= question.voteLimit) {
+//             console.log('Vote limit reached for question:', questionId);
+//             return res.status(204).json({ error: 'Vote limit reached' });
+//         }
+
+//         const questionForm = await prisma.questionForm.findUnique({
+//             where: { id: parseInt(formId) },
+//         });
+
+//         if (!questionForm) {
+//             console.log('QuestionForm not found:', formId);
+//             // return res.status(204).json({ error: 'QuestionForm not found' });
+//         } else if ( questionForm.options ) {
+//             if (!Array.isArray(questionForm.options) || !questionForm.options.some(option => option.hasOwnProperty('imageURL'))) {
+//                 console.log('QuestionForm has no options with imageURL:', formId);
+//                 return res.status(204).json({ error: 'QuestionForm has no options with imageURL' });
+//             } else {
+//                 console.log('QuestionForm found:', formId);
+//             }
+//         }
+
+//         console.log('Received vote for question:', questionId, 'option:', optionId);
+
+//         // Record the vote
+//         await prisma.vote.create({
+//             data: {
+//                 question: {
+//                     connect: { id: questionId }
+//                 },
+//                 voter: {
+//                     connect: { id: userId }
+//                 },
+//                 questionForm: {
+//                     connect: { id: parseInt(formId) }
+//                 }
+//             },
+//         });
+
+//         // Update the vote count
+//         await prisma.question.update({
+//             where: { id: questionId },
+//             data: { totalVotes: { increment: 1 } },
+//         });
+
+//         console.log(`Updated votes for question ${questionId}, option ${optionId}`);
+
+//         // Update the votes for the option
+//         const options = question.options;
+//         options[optionId].votes += 1;
+
+//         await prisma.question.update({
+//             where: { id: questionId },
+//             data: { options: options },
+//         });
+
+//         // Reward the voter
+//         await prisma.voter.update({
+//             where: { id: userId },
+//             data: { totalRewardsEarned: { increment: question.rewardPerVote } },
+//         });
+
+//         res.json({ success: true });
+//     } catch (error) {
+//         console.error('Error voting:', error);
+//         res.status(500).json({ error: error.message });
+//     }
+// });
 
 // router.get('/questions/:id', async (req, res) => {
 //     const userId = parseInt(req.params.id);

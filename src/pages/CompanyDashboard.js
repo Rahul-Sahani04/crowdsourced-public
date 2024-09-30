@@ -329,7 +329,7 @@ export default function CompanyDashboard() {
 
           <CardContent className="text-white/90">
             <div className="space-y-4">
-              {recentProjects.slice(0, 3).map((project, key) => (
+              {recentProjects && recentProjects.slice(0, 3).map((project, key) => (
                 <div
                   key={key}
                   className="grid grid-cols-5 justify-between items-center"
@@ -346,7 +346,7 @@ export default function CompanyDashboard() {
                   </Button>
                 </div>
               ))}
-              {recentProjects.length > 3 && (
+              {recentProjects && recentProjects.length > 3 && (
                 <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
                   View More
                 </Button>

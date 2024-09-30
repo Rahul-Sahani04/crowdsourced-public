@@ -168,6 +168,8 @@ export default function QuestionSurveyPage() {
 
     const res = await axios.post(api + "/company/login", { address });
 
+    console.log("Login response:", res.data);
+
     setUserId(res.data.userId);
     localStorage.setItem("userId", res.data.userId);
 
@@ -397,7 +399,7 @@ export default function QuestionSurveyPage() {
             <div>
               <Label htmlFor="rewardAmount">
                 Reward Amount{" "}
-                <span className="italic font-semibold">(in POL)</span>
+                {/* <span className="italic font-semibold">(in POL)</span> */}
               </Label>
               <Input
                 id="rewardAmount"

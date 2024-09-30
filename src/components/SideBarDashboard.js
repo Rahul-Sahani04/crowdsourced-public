@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export const DashboardSidebar = () => {
   const navigate = useNavigate();
   const [accountType, setAccountType] = useState("none");
@@ -31,15 +31,15 @@ export const DashboardSidebar = () => {
   }, []);
 
   return (
-    <aside className="w-64 bg-slate-800 p-6 space-y-6">
-      <div className="flex items-center space-x-2">
-        <img
-        src="/assets/logo.svg"
-         className="h-8 w-8 text-purple-500" />
-        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-          Crowdsourced
-        </span>
-      </div>
+    <aside className="w-64 min-w-60  bg-slate-800 p-6 space-y-6">
+      <Link to="/">
+        <div className="flex items-center space-x-2">
+          <img src="/assets/logo.svg" className="h-8 w-8 text-purple-500" />
+          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+            Crowdsourced
+          </span>
+        </div>
+      </Link>
       <nav className="space-y-2">
         <Button
           variant="ghost"
@@ -75,8 +75,10 @@ export const DashboardSidebar = () => {
         <Button variant="ghost" className="w-full justify-start">
           <FileText className="mr-2 h-4 w-4" /> My Projects
         </Button>
-        <Button variant="ghost" className="w-full justify-start"
-        onClick={() =>
+        <Button
+          variant="ghost"
+          className="w-full justify-start"
+          onClick={() =>
             accountType === "company"
               ? navigate("/company/analytics")
               : navigate("/voter/analytics")
